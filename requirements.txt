@@ -1,45 +1,5 @@
-# ─────────────────────────────────────────────────────────────────────
-# The Marsabit Footprint
-# Spatio-Temporal Machine Learning and Spatial Econometric Analysis
-# of Vegetation Dynamics in Marsabit County (1990–2024)
-#
-# Requirements File
-# Python 3.10+
-# ─────────────────────────────────────────────────────────────────────
-
-# Google Earth Engine
-earthengine-api==0.1.390
-geemap==0.30.0
-
-# Core data science
-numpy==1.26.4
-pandas==2.2.2
-scipy==1.13.0
-
-# Machine learning
-scikit-learn==1.4.2
-
-# Regression modeling
-statsmodels==0.14.2
-
-# Geographically Weighted Regression
-mgwr==2.1.2
-
-# Spatial statistics
-esda==2.5.1
-libpysal==4.9.2
-splot==1.1.5
-
-# Raster / geospatial
-rasterio==1.3.10
-geopandas==0.14.4
-shapely==2.0.4
-
-# Visualization
-matplotlib==3.8.4
-seaborn==0.13.2
-
-# Jupyter
-notebook==7.1.3
-ipykernel==6.29.4
-ipywidgets==8.1.2
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
