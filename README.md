@@ -179,7 +179,6 @@ vegetation loss. Field validation is recommended before implementing
 exclusion policies.
 
 ---
----
 
 ## Live Dashboard
 
