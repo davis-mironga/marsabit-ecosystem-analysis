@@ -74,7 +74,7 @@ st.markdown("""
 # ── Sidebar ───────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### The Marsabit Footprint")
-    st.markdown("**A 36-Year Data Study on Livestock Pressure and Ecosystem Health**")
+    st.markdown("**A 34-Year Study on Livestock Pressure and Ecosystem Health**")
     st.markdown("---")
     page = st.radio(
         "Navigate to",
@@ -90,7 +90,7 @@ with st.sidebar:
     )
     st.markdown("---")
     st.markdown("**Study Area:** Marsabit County, Kenya")
-    st.markdown("**Period:** 1990 – 2024 (36 years)")
+    st.markdown("**Period:** 1990 – 2024 (34 years)")
     st.markdown("**Method:** Random Forest + GWR")
     st.markdown("---")
     st.markdown(
@@ -147,8 +147,9 @@ if page == "Project Overview":
         Is vegetation change in Marsabit County driven by livestock pressure or climate
         variability — and where does livestock pressure matter most?
 
-        Marsabit County covers approximately 70,000 km² in northern Kenya. It encompasses
-        montane forest on Mt. Marsabit, extensive rangelands, wetlands, and the Chalbi Desert.
+        Marsabit County covers approximately 66,923 km² in northern Kenya, making it the
+        second largest county in Kenya. It encompasses montane forest on Mt. Marsabit,
+        extensive rangelands, wetlands, and the Chalbi Desert.
         Pastoralism is central to local livelihoods, but distinguishing vegetation loss caused
         by livestock pressure from climate variability has remained a scientific and policy challenge.
 
@@ -205,7 +206,7 @@ elif page == "NDVI Trend Analysis":
     st.markdown("Vegetation index change across five decadal periods (1990–2024)")
     st.markdown("---")
 
-    # Synthetic representative data based on actual project results
+    # Representative values based on actual project results
     periods    = ["1990", "2000", "2010", "2020", "2024"]
     ndvi_mean  = [0.148, 0.162, 0.171, 0.183, 0.212]
     ndvi_std   = [0.082, 0.078, 0.081, 0.079, 0.085]
@@ -260,21 +261,34 @@ elif page == "NDVI Trend Analysis":
     with col3:
         lulc_data = {
             "Class": ["Forest", "Rangeland", "Wetlands", "River", "Bareland"],
-            "1990 Area (ha)": [48200, 4820000, 312000, 89000, 2530000],
-            "2024 Area (ha)": [51400, 4960000, 298000, 82000, 2408000],
-            "Change (ha)": [3200, 140000, -14000, -7000, -122000]
+            "Code": [1, 2, 3, 4, 5],
+            "Description": [
+                "Dense closed canopy — Mt. Marsabit and Mt. Kulal",
+                "Open grassland and shrubland — mid-elevation plains",
+                "Seasonally or permanently wet areas",
+                "Permanent river channels — Milgis Lugga, Uaso Nyiro",
+                "Exposed soil, rock, and desert margins"
+            ],
+            "User Accuracy": ["100.0%", "100.0%", "91.7%", "100.0%", "93.8%"]
         }
-        df_lulc = pd.DataFrame(lulc_data)
-        st.dataframe(df_lulc, hide_index=True, use_container_width=True)
+        st.dataframe(pd.DataFrame(lulc_data), hide_index=True, use_container_width=True)
 
     with col4:
-        acc_data = {
-            "Class": ["Forest", "Rangeland", "Wetlands", "River", "Bareland"],
-            "User Accuracy": ["100%", "100%", "91.7%", "100%", "93.8%"],
-            "Feature": ["NDVI primary", "Elevation primary",
-                        "SWIR primary", "JRC water", "NDVI + Elevation"]
+        st.markdown('<div class="section-header">Feature Importance</div>', unsafe_allow_html=True)
+        feat_data = {
+            "Rank": [1, 2, 3, 4, 5, 6],
+            "Band": ["NDVI", "Elevation", "SWIR", "Red", "NIR", "Slope"],
+            "Importance Score": [82.98, 80.03, 58.97, 53.95, 49.22, 42.99],
+            "What it captures": [
+                "Primary vegetation signal",
+                "Terrain drives vegetation type",
+                "Separates wetlands from dryland",
+                "Separates soil from vegetation",
+                "Supports vegetation discrimination",
+                "Grazing accessibility indicator"
+            ]
         }
-        st.dataframe(pd.DataFrame(acc_data), hide_index=True, use_container_width=True)
+        st.dataframe(pd.DataFrame(feat_data), hide_index=True, use_container_width=True)
 
 # ═════════════════════════════════════════════════════════════════════
 # PAGE 3 — SPATIAL CLUSTERING
@@ -479,7 +493,7 @@ elif page == "Regression Results":
             "VIF": ["—", "1.012", "1.058", "1.046"]
         }
         st.dataframe(pd.DataFrame(ols_data), hide_index=True, use_container_width=True)
-        st.caption("*** p<0.001  ** p<0.01  * p<0.05  ns = not significant")
+        st.caption("*** p<0.001  ** p<0.01  * p<0.05  ns = not significant at 0.05")
 
     with col_right:
         st.markdown('<div class="section-header">OLS vs GWR Comparison</div>',
@@ -517,21 +531,26 @@ elif page == "Regression Results":
         st.markdown('<div class="section-header">Local R² Distribution</div>',
                     unsafe_allow_html=True)
         fig, ax = plt.subplots(figsize=(6, 3.5))
+        # Illustrative distribution based on GWR mean R² = 0.3690
         np.random.seed(42)
         local_r2_sim = np.random.beta(3, 5, 2445) * 0.75
         ax.hist(local_r2_sim, bins=40, color="#1B3A6B",
                 edgecolor="white", linewidth=0.4, alpha=0.85)
         ax.axvline(0.3690, color="#D7191C", linewidth=2,
-                   linestyle="--", label=f"Mean = 0.369")
+                   linestyle="--", label="Mean GWR R² = 0.369")
         ax.axvline(0.1288, color="#FDAE61", linewidth=2,
-                   linestyle="--", label=f"OLS R² = 0.129")
+                   linestyle="--", label="OLS R² = 0.129")
         ax.set_xlabel("Local R²", fontsize=10)
         ax.set_ylabel("Frequency", fontsize=10)
-        ax.set_title("Distribution of GWR Local R²", fontsize=11)
+        ax.set_title("Distribution of GWR Local R² (Illustrative)", fontsize=11)
         ax.legend(fontsize=9)
         ax.grid(True, alpha=0.3)
         st.pyplot(fig)
         plt.close()
+        st.caption(
+            "Note: Distribution is illustrative. Actual GWR local R² values "
+            "are stored in the GeoTIFF outputs from Notebook 4."
+        )
 
 # ═════════════════════════════════════════════════════════════════════
 # PAGE 6 — VULNERABILITY MAP
