@@ -10,7 +10,7 @@
 
 ## Research Question
 
-Is vegetation change in Marsabit County driven by livestock pressure or climate variability — and where does livestock pressure matter most?
+Is vegetation change in Marsabit County driven by livestock pressure or climate variability, and where does livestock pressure matter most?
 
 Marsabit County covers approximately 70,000 km² in northern Kenya, encompassing montane forest, extensive rangelands, wetlands, and the Chalbi Desert. Pastoralism is central to local livelihoods, but separating vegetation loss caused by grazing pressure from change driven by climate variability has remained a persistent scientific and policy challenge. This project addresses that question through a four-notebook analytical pipeline combining remote sensing, machine learning, spatial statistics, and spatial econometrics across 34 years of satellite data.
 
