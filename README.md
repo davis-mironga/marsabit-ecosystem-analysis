@@ -200,7 +200,7 @@ All results in this study report statistical associations, not causal relationsh
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://davis-mironga-marsabit-ecosystem-analysis-appapp-hcvf7e.streamlit.app)
 
-Explore the interactive dashboard — NDVI trends, spatial clustering, distance-decay analysis, regression results, vulnerability map, and policy recommendations.
+Explore the interactive dashboard: NDVI trends, spatial clustering, distance-decay analysis, regression results, vulnerability map, and policy recommendations.
 
 ---
 
